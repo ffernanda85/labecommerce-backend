@@ -17,6 +17,34 @@ export const users: TUser[] = [
     },
 ]
 
+export function createUser(id: string, name: string, email: string, password: string): void {
+    const newUser = {
+        id,
+        name,
+        email,
+        password,
+        createdAt: new Date().toISOString()
+    }
+
+    users.push(newUser)
+
+    users.sort((a, b) => {
+        if (a.id < b.id) {
+            return -1
+        } else if (a.id > b.id) {
+            return 1
+        } else {
+            return 0
+        }
+    })
+    console.log("Cadastro Realizado com Sucesso!");
+    //console.log(users);
+}
+
+export function getAllUsers() {
+    users.forEach(user => console.log(user))
+}
+
 export const products: Array<TProduct> = [
     {
         id: "p001",
@@ -33,3 +61,4 @@ export const products: Array<TProduct> = [
         imageUrl: "https://picsum.photos/seed/Monitor/400"
     }
 ]
+

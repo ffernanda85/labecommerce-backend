@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.products = exports.users = void 0;
+exports.products = exports.getAllUsers = exports.createUser = exports.users = void 0;
 exports.users = [
     {
         id: "u001",
@@ -17,6 +17,33 @@ exports.users = [
         createdAt: new Date().toISOString()
     },
 ];
+function createUser(id, name, email, password) {
+    const newUser = {
+        id,
+        name,
+        email,
+        password,
+        createdAt: new Date().toISOString()
+    };
+    exports.users.push(newUser);
+    exports.users.sort((a, b) => {
+        if (a.id < b.id) {
+            return -1;
+        }
+        else if (a.id > b.id) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    });
+    console.log("Cadastro Realizado com Sucesso!");
+}
+exports.createUser = createUser;
+function getAllUsers() {
+    exports.users.forEach(user => console.log(user));
+}
+exports.getAllUsers = getAllUsers;
 exports.products = [
     {
         id: "p001",
