@@ -18,7 +18,7 @@ export const users: TUser[] = [
 ]
 
 export function createUser(id: string, name: string, email: string, password: string): void {
-    const newUser = {
+    const newUser:TUser = {
         id,
         name,
         email,
@@ -38,10 +38,9 @@ export function createUser(id: string, name: string, email: string, password: st
         }
     })
     console.log("Cadastro Realizado com Sucesso!");
-    //console.log(users);
 }
 
-export function getAllUsers() {
+export function getAllUsers(): void {
     users.forEach(user => console.log(user))
 }
 
@@ -61,4 +60,32 @@ export const products: Array<TProduct> = [
         imageUrl: "https://picsum.photos/seed/Monitor/400"
     }
 ]
+
+export function createProduct(id: string, name: string, price: number, description: string, imageUrl: string): void {
+    const newProduct: TProduct = {
+        id,
+        name,
+        price,
+        description,
+        imageUrl
+    }
+
+    products.push(newProduct);
+
+    products.sort((a, b) => {
+        if (a.id < b.id) {
+            return -1
+        } else if (a.id > b.id) {
+            return 1
+        } else {
+            return 0
+        }
+    })
+
+    console.log("Produto Criado com Sucesso!")
+}
+
+export function getAllProducts():void {
+    products.forEach(product => console.log(product))
+}
 

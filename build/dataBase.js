@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.products = exports.getAllUsers = exports.createUser = exports.users = void 0;
+exports.getAllProducts = exports.createProduct = exports.products = exports.getAllUsers = exports.createUser = exports.users = void 0;
 exports.users = [
     {
         id: "u001",
@@ -60,4 +60,31 @@ exports.products = [
         imageUrl: "https://picsum.photos/seed/Monitor/400"
     }
 ];
+function createProduct(id, name, price, description, imageUrl) {
+    const newProduct = {
+        id,
+        name,
+        price,
+        description,
+        imageUrl
+    };
+    exports.products.push(newProduct);
+    exports.products.sort((a, b) => {
+        if (a.id < b.id) {
+            return -1;
+        }
+        else if (a.id > b.id) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    });
+    console.log("Produto Criado com Sucesso!");
+}
+exports.createProduct = createProduct;
+function getAllProducts() {
+    exports.products.forEach(product => console.log(product));
+}
+exports.getAllProducts = getAllProducts;
 //# sourceMappingURL=dataBase.js.map
