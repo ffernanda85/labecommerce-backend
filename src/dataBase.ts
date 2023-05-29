@@ -89,3 +89,10 @@ export function getAllProducts():void {
     products.forEach(product => console.log(product))
 }
 
+export function searchProductByName(name:string): void {
+   const search = products.filter(product => {
+        return product.name.toLowerCase().includes(name.toLowerCase())    
+   })
+   console.log(search)
+}
+

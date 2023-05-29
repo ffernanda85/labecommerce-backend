@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllProducts = exports.createProduct = exports.products = exports.getAllUsers = exports.createUser = exports.users = void 0;
+exports.searchProductByName = exports.getAllProducts = exports.createProduct = exports.products = exports.getAllUsers = exports.createUser = exports.users = void 0;
 exports.users = [
     {
         id: "u001",
@@ -87,4 +87,11 @@ function getAllProducts() {
     exports.products.forEach(product => console.log(product));
 }
 exports.getAllProducts = getAllProducts;
+function searchProductByName(name) {
+    const search = exports.products.filter(product => {
+        return product.name.toLowerCase().includes(name.toLowerCase());
+    });
+    console.log(search);
+}
+exports.searchProductByName = searchProductByName;
 //# sourceMappingURL=dataBase.js.map
