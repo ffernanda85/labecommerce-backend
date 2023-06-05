@@ -17,6 +17,33 @@ export const users: TUser[] = [
     },
 ]
 
+export function createUser(id: string, name: string, email: string, password: string): string {
+    const newUser:TUser = {
+        id,
+        name,
+        email,
+        password,
+        createdAt: new Date().toISOString()
+    }
+
+    users.push(newUser)
+
+    users.sort((a, b) => {
+        if (a.id < b.id) {
+            return -1
+        } else if (a.id > b.id) {
+            return 1
+        } else {
+            return 0
+        }
+    })
+    return `Cadastro Realizado com Sucesso!`
+}
+
+export function getAllUsers(): TUser[] {
+   return users
+}
+
 export const products: Array<TProduct> = [
     {
         id: "p001",
@@ -33,3 +60,39 @@ export const products: Array<TProduct> = [
         imageUrl: "https://picsum.photos/seed/Monitor/400"
     }
 ]
+
+export function createProduct(id: string, name: string, price: number, description: string, imageUrl: string): string {
+    const newProduct: TProduct = {
+        id,
+        name,
+        price,
+        description,
+        imageUrl
+    }
+
+    products.push(newProduct);
+
+    products.sort((a, b) => {
+        if (a.id < b.id) {
+            return -1
+        } else if (a.id > b.id) {
+            return 1
+        } else {
+            return 0
+        }
+    })
+
+    return `Produto Criado com Sucesso!`
+}
+
+export function getAllProducts():TProduct[] {
+    return products
+}
+
+export function searchProductByName(name:string): TProduct[] {
+   const search = products.filter(product => {
+        return product.name.toLowerCase().includes(name.toLowerCase())    
+   })
+   return search
+}
+
