@@ -37,11 +37,11 @@ function createUser(id, name, email, password) {
             return 0;
         }
     });
-    console.log("Cadastro Realizado com Sucesso!");
+    return `Cadastro Realizado com Sucesso!`;
 }
 exports.createUser = createUser;
 function getAllUsers() {
-    exports.users.forEach(user => console.log(user));
+    return exports.users;
 }
 exports.getAllUsers = getAllUsers;
 exports.products = [
@@ -80,18 +80,18 @@ function createProduct(id, name, price, description, imageUrl) {
             return 0;
         }
     });
-    console.log("Produto Criado com Sucesso!");
+    return `Produto Criado com Sucesso!`;
 }
 exports.createProduct = createProduct;
 function getAllProducts() {
-    exports.products.forEach(product => console.log(product));
+    return exports.products;
 }
 exports.getAllProducts = getAllProducts;
 function searchProductByName(name) {
     const search = exports.products.filter(product => {
         return product.name.toLowerCase().includes(name.toLowerCase());
     });
-    console.log(search);
+    return search;
 }
 exports.searchProductByName = searchProductByName;
 //# sourceMappingURL=dataBase.js.map

@@ -17,7 +17,7 @@ export const users: TUser[] = [
     },
 ]
 
-export function createUser(id: string, name: string, email: string, password: string): void {
+export function createUser(id: string, name: string, email: string, password: string): string {
     const newUser:TUser = {
         id,
         name,
@@ -37,11 +37,11 @@ export function createUser(id: string, name: string, email: string, password: st
             return 0
         }
     })
-    console.log("Cadastro Realizado com Sucesso!");
+    return `Cadastro Realizado com Sucesso!`
 }
 
-export function getAllUsers(): void {
-    users.forEach(user => console.log(user))
+export function getAllUsers(): TUser[] {
+   return users
 }
 
 export const products: Array<TProduct> = [
@@ -61,7 +61,7 @@ export const products: Array<TProduct> = [
     }
 ]
 
-export function createProduct(id: string, name: string, price: number, description: string, imageUrl: string): void {
+export function createProduct(id: string, name: string, price: number, description: string, imageUrl: string): string {
     const newProduct: TProduct = {
         id,
         name,
@@ -82,17 +82,17 @@ export function createProduct(id: string, name: string, price: number, descripti
         }
     })
 
-    console.log("Produto Criado com Sucesso!")
+    return `Produto Criado com Sucesso!`
 }
 
-export function getAllProducts():void {
-    products.forEach(product => console.log(product))
+export function getAllProducts():TProduct[] {
+    return products
 }
 
-export function searchProductByName(name:string): void {
+export function searchProductByName(name:string): TProduct[] {
    const search = products.filter(product => {
         return product.name.toLowerCase().includes(name.toLowerCase())    
    })
-   console.log(search)
+   return search
 }
 
