@@ -17,6 +17,24 @@ export const users: TUser[] = [
     },
 ]
 
+export const products: Array<TProduct> = [
+    {
+        id: "p001",
+        name: "Product 001",
+        price: 380,
+        description: "Melhor Product 001 do Mercado",
+        imageUrl: "https://picsum.photos/seed/Mouse%20gamer/400"
+    },
+    {
+        id: "p002",
+        name: "Product 002",
+        price: 580,
+        description: "Melhor Product 002 do Mercado",
+        imageUrl: "https://picsum.photos/seed/Monitor/400"
+    }
+]
+
+
 export function createUser(id: string, name: string, email: string, password: string): string {
     const newUser:TUser = {
         id,
@@ -43,24 +61,6 @@ export function createUser(id: string, name: string, email: string, password: st
 export function getAllUsers(): TUser[] {
    return users
 }
-
-export const products: Array<TProduct> = [
-    {
-        id: "p001",
-        name: "Product 001",
-        price: 380,
-        description: "Melhor Product 001 do Mercado",
-        imageUrl: "https://picsum.photos/seed/Mouse%20gamer/400"
-    },
-    {
-        id: "p002",
-        name: "Product 002",
-        price: 580,
-        description: "Melhor Product 002 do Mercado",
-        imageUrl: "https://picsum.photos/seed/Monitor/400"
-    }
-]
-
 export function createProduct(id: string, name: string, price: number, description: string, imageUrl: string): string {
     const newProduct: TProduct = {
         id,

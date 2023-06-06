@@ -1,7 +1,7 @@
-import { createProduct, createUser, getAllProducts, getAllUsers, products, searchProductByName, users } from "./dataBase";
+import { products, users } from "./dataBase";
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import { TUser } from "./types";
+import { TProduct, TUser } from "./types";
 
 //criando o servidor express
 const app = express();
@@ -65,25 +65,26 @@ app.post("/users", (req: Request, res: Response) => {
     res.status(201).send("Cadastro Realizado com Sucesso!")
 })
 
-
-
-
-
-
-
-
-
-
-//console.log(users);
-//console.log(products);
-
-//console.log(createUser("u003", "Usuario 003", "usuario003@gmail.com", "usuario003"));
-//console.log(createUser("u000", "Usuario 000", "usuario003@gmail.com", "usuario003"));
-//console.log(getAllUsers())
-
-
-
-//console.log(createProduct("p003", "Product 003", 1900, "Melhor Product 003 do Mercado", "https://picsum.photos/seed/Monitor/401"))
-//console.log(createProduct("p000", "Product 000", 1900, "Melhor Product 003 do Mercado", "https://picsum.photos/seed/Monitor/401"))
-//console.log(getAllProducts())
-//console.log(searchProductByName("PR"))
+//createProduct
+app.post("/products", (req: Request, res: Response) => {
+    const { id, name, price, description, imageUrl } = req.body
+    
+    const newProduct: TProduct = {
+        id,
+        name, 
+        price,
+        description,
+        imageUrl
+    }
+    products.push(newProduct);
+    products.sort((a, b) => {
+        if (a.id < b.id) {
+            return -1
+        } else if (a.id > b.id){
+            return 1
+        } else {
+            return 0
+        }
+    })
+    res.status(201).send("Produto Cadastrado com Sucesso!")
+})
