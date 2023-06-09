@@ -89,6 +89,7 @@ app.post("/products", (req: Request, res: Response) => {
     res.status(201).send("Produto Cadastrado com Sucesso!")
 })
 
+//deleteUserById
 app.delete("/users/:id", (req: Request, res: Response) => {
     const id = req.params.id
 
@@ -96,7 +97,25 @@ app.delete("/users/:id", (req: Request, res: Response) => {
 
     if (indexUserDelete >= 0) {
         users.splice(indexUserDelete, 1)
-    }
+        res.status(200).send("Usuário apagado com sucesso!")
 
-    res.status(200).send("User apagado com sucesso!")
+    } else {
+        res.status(400).send("Usuário não encontrado!")    
+    }
+})
+
+//deleteProductById
+app.delete("/products/:id", (req: Request, res: Response) => {
+    const id = req.params.id
+
+    const indexProductDelete = products.findIndex(product => {
+        product.id === id
+    })
+
+    if (indexProductDelete >= 0) {
+        products.splice(indexProductDelete, 1)
+        res.status(200).send("Produto apagado com sucesso!")
+    } else {
+        res.status(400).send("Produto não encontrado!")
+    }
 })
