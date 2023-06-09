@@ -88,3 +88,15 @@ app.post("/products", (req: Request, res: Response) => {
     })
     res.status(201).send("Produto Cadastrado com Sucesso!")
 })
+
+app.delete("/users/:id", (req: Request, res: Response) => {
+    const id = req.params.id
+
+    const indexUserDelete = users.findIndex(user => user.id === id)
+
+    if (indexUserDelete >= 0) {
+        users.splice(indexUserDelete, 1)
+    }
+
+    res.status(200).send("User apagado com sucesso!")
+})
