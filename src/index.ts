@@ -89,6 +89,34 @@ app.post("/products", (req: Request, res: Response) => {
     res.status(201).send("Produto Cadastrado com Sucesso!")
 })
 
+//updateProductById
+app.put("/products/:id", (req: Request, res: Response) => {
+    const id = req.params.id
+
+    //Desestruturando e tipando as entradas do req.body
+    const {name, price, description, imageUrl} = req.body as TProduct
+    
+    //declarando as entradas do req.body e tipando elas uma a uma
+    /* const newName = req.body.name as string | undefined
+    const newPrice = req.body.price as number
+    const newDescription = req.body.description as string | undefined
+    const newImageUrl = req.body.newImageUrl as string | undefined */
+
+    const product = products.find(product => product.id === id)
+
+    if (product) {
+        product.name = name || product.name
+        product.price = price > 0 ? price : product.price
+        product.description = description || product.description
+        product.imageUrl = imageUrl || product.imageUrl
+
+        res.status(200).send("Produto Atualizado com sucesso!")
+    } else {
+
+        res.status(400).send("Produto não encontrado!")
+    }
+})
+
 //deleteUserById
 app.delete("/users/:id", (req: Request, res: Response) => {
     const id = req.params.id
@@ -108,13 +136,12 @@ app.delete("/users/:id", (req: Request, res: Response) => {
 app.delete("/products/:id", (req: Request, res: Response) => {
     const id = req.params.id
 
-    const indexProductDelete = products.findIndex(product => {
-        product.id === id
-    })
+    const indexProductDelete = products.findIndex(product => product.id === id)
 
     if (indexProductDelete >= 0) {
         products.splice(indexProductDelete, 1)
         res.status(200).send("Produto apagado com sucesso!")
+
     } else {
         res.status(400).send("Produto não encontrado!")
     }

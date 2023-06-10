@@ -1,0 +1,22 @@
+### Test Ping
+GET http://localhost:3003/ping
+
+### Test getAllUsers
+GET http://localhost:3003/users
+
+### Test getAllProducts
+GET http://localhost:3003/products
+
+### Test createUser
+POST http://localhost:3003/users
+
+### Test createProduct
+POST http://localhost:3003/products
+
+### Test updateProductById
+PUT http://localhost:3003/products/p001
+
+{
+    "name": "opa"
+}
+
