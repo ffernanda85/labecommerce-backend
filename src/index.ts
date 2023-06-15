@@ -38,7 +38,7 @@ app.get("/users", (req: Request, res: Response) => {
         if (error instanceof Error) {
             res.send(error.message)    
         } else {
-            res.send("Unexpected error")
+            res.send("Unexpected error!")
         }
     }
 })
@@ -46,50 +46,125 @@ app.get("/users", (req: Request, res: Response) => {
 //Get All Products
 app.get("/products", (req: Request, res: Response) => {
     try {
-        
-        const name = req.query.name
+        const name = req.query.name as string
 
-        if (name) {
-            const result = products.filter(product => {
-                return product.name.toLowerCase().includes(name.toString().toLowerCase())
-            })
-            result.length > 0 ? res.status(200).send(result) : res.status(200).send(products)    
+        //verifica se name está sendo enviado pela query
+        if (name !== undefined) {
+            //forçando um erro caso o name tenha menos de 01 caracter
+            if (name.length < 1) {
+                res.status(400)
+                throw new Error("Invalid name! Enter more than one character");
+            }
+            //verificando se o name enviado é compativel com algum produto, caso sim retorna o produto, se não retorna todos os produtos
+            const filterProduct = products.filter(product => product.name.toLowerCase().includes(name.toLowerCase()))
+            filterProduct.length > 0 ? res.status(200).send(filterProduct) : res.status(200).send(products)    
         }
+        //se o name não for enviado pela query mostra todos os produtos
         res.status(200).send(products)  
 
     } catch (error) {
-        
-    }
-    
-    
-     
-})
-
-//createUser
-app.post("/users", (req: Request, res: Response) => {
-    const { id, name, email, password } = req.body
-    
-    const newUser: TUser = {
-        id,
-        name,
-        email,
-        password,
-        createdAt: new Date().toISOString()
-    }
-    users.push(newUser);
-    users.sort((a, b) => {
-        if (a.id < b.id) {
-            return -1
-        } else if (a.id > b.id) {
-            return 1
-        } else {
-            return 0
+        if (res.statusCode === 200) {
+            res.status(500)
         }
-    })
-    res.status(201).send("Cadastro Realizado com Sucesso!")
+        if (error instanceof Error) {
+            res.send(error.message)
+        } else {
+            res.send("Unexpected error!")
+        }
+    }
 })
 
-//createProduct
+//create User
+app.post("/users", (req: Request, res: Response) => {
+    try {
+        const { id, name, email, password } = req.body
+
+        //validando o body
+        if (
+            id === undefined ||
+            name === undefined ||
+            email === undefined ||
+            password === undefined
+        ) {
+            res.status(400)
+            throw new Error("Enter all the necessary information!");
+        }
+
+        //validando o id como string
+        if (typeof id !== "string") {
+            res.status(400)
+            throw new Error("Invalid 'Id'. Enter a string");
+        } else {
+            const findUser = users.find(user => user.id === id)
+            if (findUser) {
+                res.status(400)
+                throw new Error("This 'Id' already exists");
+            }
+        }
+
+        //validando o name como string
+        if (typeof name !== "string") {
+            res.status(400)
+            throw new Error("Invalid 'name'. Enter a string");
+        }
+
+        //validando o email
+        if (typeof email !== "string") {
+            res.status(400)
+            throw new Error("Invalid 'email'. Enter a string");
+        
+        } else {
+            //verificando se o email já existe
+            const findEmail = users.find(user => user.email === email)
+            
+            if (findEmail) {
+                res.status(400)
+                throw new Error("This 'email' already exists");
+            }
+        }
+
+        //validando o password
+        if (typeof password !== "string") {
+            res.status(400)
+            throw new Error("Invalid 'password'. Enter a string");
+        }
+
+        //criando o novo usuário com os dados validados
+        const newUser: TUser = {
+            id,
+            name,
+            email,
+            password,
+            createdAt: new Date().toISOString()
+        }
+        //dando o push no novo usuário para o array de usuário(o nosso banco de dados mocado)
+        users.push(newUser);
+        //fazendo um sort para garantir que a ordem de nossos usuários seja baseado no id
+        users.sort((a, b) => {
+            if (a.id < b.id) {
+                return -1
+            } else if (a.id > b.id) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+        //alterando o status para 201 e retornando a mensagem de cadastro realizado com sucesso
+        res.status(201).send("Cadastro Realizado com Sucesso!")
+
+    } catch (error) {
+        if (res.statusCode === 200) {
+            res.status(500)
+        }
+        if (error instanceof Error) {
+            res.send(error.message)
+        } else {
+            res.send("Unexpected error!")
+        }
+    }
+})
+
+//create Product
 app.post("/products", (req: Request, res: Response) => {
     const { id, name, price, description, imageUrl } = req.body
     
