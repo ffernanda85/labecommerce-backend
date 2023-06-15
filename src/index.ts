@@ -23,22 +23,46 @@ app.get("/ping", (req: Request, res: Response) => {
     res.send("Pong!")
 })
 
-//getAllUsers
+//Get All Users
 app.get("/users", (req: Request, res: Response) => {
-    res.status(200).send(users)
+    try {
+        res.status(200).send(users)    
+
+    } catch (error) {
+        //garante que o status seja alterado do padrão caso ocorra um erro inesperado
+        //já que o valor do status padrão é 200
+        if (res.statusCode === 200) {
+            res.status(500)
+        }
+        //verifica se o erro recebido é uma instância da classe Error ou é um error inesperado do servidor
+        if (error instanceof Error) {
+            res.send(error.message)    
+        } else {
+            res.send("Unexpected error")
+        }
+    }
 })
 
-//getAllProducts
+//Get All Products
 app.get("/products", (req: Request, res: Response) => {
-    const name = req.query.name
+    try {
+        
+        const name = req.query.name
 
-    if (name) {
-        const result = products.filter(product => {
-            return product.name.toLowerCase().includes(name.toString().toLowerCase())
-        })
-        result.length > 0 ? res.status(200).send(result) : res.status(200).send(products)    
+        if (name) {
+            const result = products.filter(product => {
+                return product.name.toLowerCase().includes(name.toString().toLowerCase())
+            })
+            result.length > 0 ? res.status(200).send(result) : res.status(200).send(products)    
+        }
+        res.status(200).send(products)  
+
+    } catch (error) {
+        
     }
-    res.status(200).send(products)    
+    
+    
+     
 })
 
 //createUser
@@ -94,7 +118,7 @@ app.put("/products/:id", (req: Request, res: Response) => {
     const id = req.params.id
 
     //Desestruturando e tipando as entradas do req.body
-    const {name, price, description, imageUrl} = req.body as TProduct
+    const {name, price, description, imageUrl} = req.body as TProduct 
     
     //declarando as entradas do req.body e tipando elas uma a uma
     /* const newName = req.body.name as string | undefined
