@@ -99,7 +99,7 @@ app.post("/users", (req: Request, res: Response) => {
     } else {
       const findId = users.find((user) => user.id === id);
       if (findId) {
-        res.status(400);
+        res.status(409);
         throw new Error("This 'Id' already exists");
       }
     }
@@ -119,7 +119,7 @@ app.post("/users", (req: Request, res: Response) => {
       const findEmail = users.find((user) => user.email === email);
 
       if (findEmail) {
-        res.status(400);
+        res.status(409);
         throw new Error("This 'email' already exists");
       }
     }
@@ -189,7 +189,7 @@ app.post("/products", (req: Request, res: Response) => {
       //verificando se o Id já existe
       const findId = products.find((product) => product.id === id);
       if (findId) {
-        res.status(400);
+        res.status(409);
         throw new Error("This 'Id' already exists");
       }
     }
@@ -240,6 +240,7 @@ app.post("/products", (req: Request, res: Response) => {
     });
 
     res.status(201).send("Registered Product!");
+      
   } catch (error) {
     if (res.statusCode === 200) {
       res.status(500);
@@ -262,11 +263,40 @@ app.delete("/users/:id", (req: Request, res: Response) => {
     //verificando se a conta existe
     if (findIndexUser < 0) {
       res.status(404);
-      throw new Error("Account not exist");
+      throw new Error("Account not found");
     }
     //deleta o usuário que está no indice indicado pelo findIndexUser
     users.splice(findIndexUser, 1);
     res.status(200).send("Deleted user");
+  } catch (error) {
+    if (res.statusCode === 200) {
+      res.status(500);
+    }
+    if (error instanceof Error) {
+      res.send(error.message);
+    } else {
+      res.send("Unexpected error!");
+    }
+  }
+});
+
+//delete Product By Id
+app.delete("/products/:id", (req: Request, res: Response) => {
+  try {
+    //atribuindo a constante id o path params id
+    const id = req.params.id;
+
+    //verificando se o produto existe
+    const findIndexProduct = products.findIndex((product) => product.id === id);
+
+    if (findIndexProduct < 0) {
+      res.status(404);
+      throw new Error("Product not found");
+    }
+    
+    //deletando o produto
+    products.splice(findIndexProduct, 1);
+    res.status(200).send("Deleted product");
       
   } catch (error) {
     if (res.statusCode === 200) {
@@ -280,43 +310,60 @@ app.delete("/users/:id", (req: Request, res: Response) => {
   }
 });
 
-//deleteProductById
-app.delete("/products/:id", (req: Request, res: Response) => {
-  const id = req.params.id;
-
-  const indexProductDelete = products.findIndex((product) => product.id === id);
-
-  if (indexProductDelete >= 0) {
-    products.splice(indexProductDelete, 1);
-    res.status(200).send("Produto apagado com sucesso!");
-  } else {
-    res.status(400).send("Produto não encontrado!");
-  }
-});
-
-//updateProductById
+//update Product By Id
 app.put("/products/:id", (req: Request, res: Response) => {
-  const id = req.params.id;
+    try {
+        const id = req.params.id;
 
-  //Desestruturando e tipando as entradas do req.body
-  const { name, price, description, imageUrl } = req.body as TProduct;
+        const findProduct = products.find(product => product.id === id)
 
-  //declarando as entradas do req.body e tipando elas uma a uma
-  /* const newName = req.body.name as string | undefined
-      const newPrice = req.body.price as number
-      const newDescription = req.body.description as string | undefined
-      const newImageUrl = req.body.newImageUrl as string | undefined */
+        if (!findProduct) {
+            res.status(404)
+            throw new Error("Product not found");
+        }
+        //Desestruturando as entradas do req.body
+        const { name, price, description, imageUrl } = req.body
 
-  const product = products.find((product) => product.id === id);
+        if (name !== undefined && typeof name !== "string") {
+            res.status(400)
+            throw new Error("Invalid 'name'. Enter a string");
+        }
 
-  if (product) {
-    product.name = name || product.name;
-    product.price = price > 0 ? price : product.price;
-    product.description = description || product.description;
-    product.imageUrl = imageUrl || product.imageUrl;
+        if (price !== undefined) {
+          if (typeof price !== "number") {
+            res.status(400)
+            throw new Error("Invalid 'price'. Enter a number");  
+          } else if (price <= 0) {
+            res.status(400)
+            throw new Error("Invalid 'price'. Enter a value greater than zero");  
+          }
+        }  
 
-    res.status(200).send("Produto Atualizado com sucesso!");
-  } else {
-    res.status(400).send("Produto não encontrado!");
-  }
+        if (description !== undefined && typeof description !== "string") {
+            res.status(400)
+            throw new Error("Invalid 'description'. Enter a string");
+        }
+
+        if (imageUrl !== undefined && typeof imageUrl !== "string") {
+            res.status(400)
+            throw new Error("Invalid 'imageURL'. Enter a string");
+        }
+
+        findProduct.name = name || findProduct.name
+        findProduct.price = price || findProduct.price
+        findProduct.description = description || findProduct.description
+        findProduct.imageUrl = imageUrl || findProduct.imageUrl
+
+        res.status(200).send("Update product")
+
+    } catch (error) {
+        if (res.statusCode === 200) {
+            res.status(500);
+          }
+          if (error instanceof Error) {
+            res.send(error.message);
+          } else {
+            res.send("Unexpected error!");
+          }
+    }
 });
