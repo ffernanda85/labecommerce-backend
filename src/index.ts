@@ -45,10 +45,14 @@ app.get("/users", (req: Request, res: Response) => {
 //Get All Products
 app.get("/products", (req: Request, res: Response) => {
   try {
-    const name = req.query.name as string;
+    const name = req.query.name
 
     //verifica se name está sendo enviado pela query
     if (name !== undefined) {
+      if (typeof name !== "string") {
+        res.status(400)
+        throw new Error("Invalid 'name'. Enter a string");
+      }
       //forçando um erro caso o name tenha menos de 01 caracter
       if (name.length < 1) {
         res.status(400);
@@ -257,10 +261,10 @@ app.post("/products", (req: Request, res: Response) => {
 app.delete("/users/:id", (req: Request, res: Response) => {
   try {
     const id = req.params.id;
-
-    const findIndexUser = users.findIndex((user) => user.id === id);
-
+    
     //verificando se a conta existe
+    const findIndexUser = users.findIndex((user) => user.id === id);
+        
     if (findIndexUser < 0) {
       res.status(404);
       throw new Error("Account not found");
@@ -268,6 +272,7 @@ app.delete("/users/:id", (req: Request, res: Response) => {
     //deleta o usuário que está no indice indicado pelo findIndexUser
     users.splice(findIndexUser, 1);
     res.status(200).send("Deleted user");
+
   } catch (error) {
     if (res.statusCode === 200) {
       res.status(500);
