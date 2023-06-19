@@ -4,6 +4,7 @@ import cors from "cors";
 import { TProduct, TUser } from "./types";
 import { getAllUsers } from "./endpoints/getAllUsers";
 import { getAllProducts } from "./endpoints/getAllProducts";
+import { createUser } from "./endpoints/createUser";
 
 //criando o servidor express
 const app = express();
@@ -32,92 +33,7 @@ app.get("/users", getAllUsers);
 app.get("/products", getAllProducts);
 
 //create User
-app.post("/users", (req: Request, res: Response) => {
-  try {
-    const { id, name, email, password } = req.body;
-
-    //validando o body
-    if (
-      id === undefined ||
-      name === undefined ||
-      email === undefined ||
-      password === undefined
-    ) {
-      res.status(400);
-      throw new Error("Enter all the necessary information!");
-    }
-
-    //validando o id como string
-    if (typeof id !== "string") {
-      res.status(400);
-      throw new Error("Invalid 'Id'. Enter a string");
-    } else {
-      const findId = users.find((user) => user.id === id);
-      if (findId) {
-        res.status(409);
-        throw new Error("This 'Id' already exists");
-      }
-    }
-
-    //validando o name como string
-    if (typeof name !== "string") {
-      res.status(400);
-      throw new Error("Invalid 'name'. Enter a string");
-    }
-
-    //validando o email
-    if (typeof email !== "string") {
-      res.status(400);
-      throw new Error("Invalid 'email'. Enter a string");
-    } else {
-      //verificando se o email já existe
-      const findEmail = users.find((user) => user.email === email);
-
-      if (findEmail) {
-        res.status(409);
-        throw new Error("This 'email' already exists");
-      }
-    }
-
-    //validando o password
-    if (typeof password !== "string") {
-      res.status(400);
-      throw new Error("Invalid 'password'. Enter a string");
-    }
-
-    //criando o novo usuário com os dados validados
-    const newUser: TUser = {
-      id,
-      name,
-      email,
-      password,
-      createdAt: new Date().toISOString(),
-    };
-    //dando o push no novo usuário para o array de usuário(o nosso banco de dados mocado)
-    users.push(newUser);
-    //fazendo um sort para garantir que a ordem de nossos usuários seja baseado no id
-    users.sort((a, b) => {
-      if (a.id < b.id) {
-        return -1;
-      } else if (a.id > b.id) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-    //alterando o status para 201 e retornando a mensagem de cadastro realizado com sucesso
-    res.status(201).send("Registered user!");
-  } catch (error) {
-    if (res.statusCode === 200) {
-      res.status(500);
-    }
-    if (error instanceof Error) {
-      res.send(error.message);
-    } else {
-      res.send("Unexpected error!");
-    }
-  }
-});
+app.post("/users", createUser);
 
 //create Product
 app.post("/products", (req: Request, res: Response) => {
