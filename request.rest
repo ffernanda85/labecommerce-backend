@@ -5,7 +5,7 @@ GET http://localhost:3003/ping
 GET http://localhost:3003/users
 
 ### Test getAllProducts
-GET http://localhost:3003/products
+GET http://localhost:3003/products/fl
 
 ### Test createUser
 POST http://localhost:3003/users

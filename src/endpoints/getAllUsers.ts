@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import { Request, Response } from "express";
 import { users } from "../dataBase";
 
 export function getAllUsers(req: Request, res: Response) {
