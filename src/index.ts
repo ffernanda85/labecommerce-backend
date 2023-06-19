@@ -2,6 +2,7 @@ import { products, users } from "./dataBase";
 import express, { Request, Response } from "express";
 import cors from "cors";
 import { TProduct, TUser } from "./types";
+import { getAllUsers } from "./endpoints/getAllUsers";
 
 //criando o servidor express
 const app = express();
@@ -24,23 +25,7 @@ app.get("/ping", (req: Request, res: Response) => {
 });
 
 //Get All Users
-app.get("/users", (req: Request, res: Response) => {
-  try {
-    res.status(200).send(users);
-  } catch (error) {
-    //garante que o status seja alterado do padrão caso ocorra um erro inesperado
-    //já que o valor do status padrão é 200
-    if (res.statusCode === 200) {
-      res.status(500);
-    }
-    //verifica se o erro recebido é uma instância da classe Error ou é um error inesperado do servidor
-    if (error instanceof Error) {
-      res.send(error.message);
-    } else {
-      res.send("Unexpected error!");
-    }
-  }
-});
+app.get("/users", getAllUsers);
 
 //Get All Products
 app.get("/products", (req: Request, res: Response) => {
