@@ -5,6 +5,7 @@ import { TProduct, TUser } from "./types";
 import { getAllUsers } from "./endpoints/getAllUsers";
 import { getAllProducts } from "./endpoints/getAllProducts";
 import { createUser } from "./endpoints/createUser";
+import { createProduct } from "./endpoints/createProduct";
 
 //criando o servidor express
 const app = express();
@@ -36,93 +37,7 @@ app.get("/products", getAllProducts);
 app.post("/users", createUser);
 
 //create Product
-app.post("/products", (req: Request, res: Response) => {
-  try {
-    const { id, name, price, description, imageUrl } = req.body;
-
-    //validando o body
-    if (
-      id === undefined ||
-      name === undefined ||
-      price === undefined ||
-      description === undefined ||
-      imageUrl === undefined
-    ) {
-      res.status(400);
-      throw new Error("Enter all the necessary information!");
-    }
-
-    //validando id como string
-    if (typeof id !== "string") {
-      res.status(400);
-      throw new Error("Invalid 'Id'. Enter a string");
-    } else {
-      //verificando se o Id já existe
-      const findId = products.find((product) => product.id === id);
-      if (findId) {
-        res.status(409);
-        throw new Error("This 'Id' already exists");
-      }
-    }
-
-    //validando name
-    if (typeof name !== "string") {
-      res.status(400);
-      throw new Error("Invalid 'name'. Enter a string");
-    }
-
-    //validando o price
-    if (typeof price !== "number") {
-      res.status(400);
-      throw new Error("Invalid 'price'. Enter a number");
-    }
-
-    //validando description
-    if (typeof description !== "string") {
-      res.status(400);
-      throw new Error("Invalid 'description'. Enter a string");
-    }
-
-    //validando imageURL
-    if (typeof imageUrl !== "string") {
-      res.status(400);
-      throw new Error("Invalid 'imageURL'. Enter a string");
-    }
-
-    //criando o newProduct com as informações validadas do body
-    const newProduct: TProduct = {
-      id,
-      name,
-      price,
-      description,
-      imageUrl,
-    };
-
-    products.push(newProduct);
-
-    products.sort((a, b) => {
-      if (a.id < b.id) {
-        return -1;
-      } else if (a.id > b.id) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-
-    res.status(201).send("Registered Product!");
-      
-  } catch (error) {
-    if (res.statusCode === 200) {
-      res.status(500);
-    }
-    if (error instanceof Error) {
-      res.send(error.message);
-    } else {
-      res.send("Unexpected error!");
-    }
-  }
-});
+app.post("/products", createProduct);
 
 //delete User By Id
 app.delete("/users/:id", (req: Request, res: Response) => {
