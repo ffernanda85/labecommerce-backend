@@ -13,4 +13,3 @@ export type TProduct = {
     description: string
     imageUrl: string
 }
-
