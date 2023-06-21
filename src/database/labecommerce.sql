@@ -18,8 +18,7 @@ VALUES
     ("u004", "user004", "user004@gmail.com", "user004", "20/06/2023"),
     ("u005", "user005", "user005@gmail.com", "user005", "20/06/2023");
 
--- Query para mostrar tabela users
-SELECT * FROM users;
+
 
 -- Query de criação da tabela products
 CREATE TABLE products (
@@ -41,3 +40,8 @@ VALUES
 
 -- Mostrando tabela products
 SELECT * FROM products;
+
+-- Query Get All Users
+-- Query para mostrar tabela users
+SELECT * FROM users;
+
