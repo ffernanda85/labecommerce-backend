@@ -34,7 +34,6 @@ DELETE FROM users
 WHERE id = "u006";
 
 
-
 ---------------------- QUERIES PRODUCTS -----------------------------
 
 -- Query de criação da tabela products
@@ -58,10 +57,6 @@ VALUES
     ("p004", "Gamer Keyboard 004", 699.99, "The best product 004", "https://picsum.photos/seed/street/400"),
     ("p005", "Notebook 005", 599.99, "The best product 005", "https://picsum.photos/seed/soccer/400");
 
---Delete product by id
-DELETE FROM products
-WHERE id = "p006";
-
 -- Query Get All Products
 SELECT * FROM products;
 
@@ -73,6 +68,10 @@ WHERE name LIKE '%game%';
 INSERT INTO products (id, name, price, description, image_url)
 VALUES
     ("p006", "Notebook 006", 499.99, "The best product 006", "https://picsum.photos/seed/summer/400");
+
+--Delete product by id
+DELETE FROM products
+WHERE id = "p006";
 
 -- Query Update product by id
 UPDATE products
