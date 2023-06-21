@@ -24,6 +24,17 @@ VALUES
 -- Query para mostrar tabela users
 SELECT * FROM users;
 
+-- Query Create User
+INSERT INTO users (id, name, email, password, created_at)
+VALUES
+    ("u006", "user006", "user006@gmail.com", "user006", "21/06/2023");
+
+--Delete user by id
+DELETE FROM users
+WHERE id = "u006";
+
+
+
 ---------------------- QUERIES PRODUCTS -----------------------------
 
 -- Query de criação da tabela products
@@ -47,8 +58,9 @@ VALUES
     ("p004", "Gamer Keyboard 004", 699.99, "The best product 004", "https://picsum.photos/seed/street/400"),
     ("p005", "Notebook 005", 599.99, "The best product 005", "https://picsum.photos/seed/soccer/400");
 
---Deletando todos as linhas da tabela products
-DELETE FROM products;
+--Delete product by id
+DELETE FROM products
+WHERE id = "p006";
 
 -- Query Get All Products
 SELECT * FROM products;
@@ -56,3 +68,16 @@ SELECT * FROM products;
 -- Query Get All Products com termo de busca
 SELECT * FROM products
 WHERE name LIKE '%game%';
+
+-- Query Create Product
+INSERT INTO products (id, name, price, description, image_url)
+VALUES
+    ("p006", "Notebook 006", 499.99, "The best product 006", "https://picsum.photos/seed/summer/400");
+
+-- Query Update product by id
+UPDATE products
+SET name = "Notebook 0006",
+    price = 100,
+    description = "",
+    image_url = ""
+WHERE id = "p006";
