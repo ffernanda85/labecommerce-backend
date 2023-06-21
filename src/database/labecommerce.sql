@@ -38,10 +38,10 @@ VALUES
     ("p004", "product004", 699.99, "The best product 004", "https://picsum.photos/seed/street/400"),
     ("p005", "product005", 599.99, "The best product 005", "https://picsum.photos/seed/soccer/400");
 
--- Mostrando tabela products
-SELECT * FROM products;
-
 -- Query Get All Users
 -- Query para mostrar tabela users
 SELECT * FROM users;
 
+-- Query Get All Products
+-- Mostrando tabela products
+SELECT * FROM products;
