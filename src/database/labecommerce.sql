@@ -1,5 +1,7 @@
 -- Active: 1687289759464@@127.0.0.1@3306
 
+----------------------- QUERIES TABLE USERS ----------------------
+
 --Query de criação da tabela de users
 CREATE TABLE users (
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
@@ -18,7 +20,11 @@ VALUES
     ("u004", "user004", "user004@gmail.com", "user004", "20/06/2023"),
     ("u005", "user005", "user005@gmail.com", "user005", "20/06/2023");
 
+-- Query Get All Users
+-- Query para mostrar tabela users
+SELECT * FROM users;
 
+---------------------- QUERIES PRODUCTS -----------------------------
 
 -- Query de criação da tabela products
 CREATE TABLE products (
@@ -29,19 +35,24 @@ CREATE TABLE products (
     image_url TEXT NOT NULL
 );
 
+-- Delete Table Products
+DROP TABLE products;
+
 -- Populando a tabela products
 INSERT INTO products (id, name, price, description, image_url)
 VALUES
-    ("p001", "product001", 999.99, "The best product 001", "https://picsum.photos/seed/Mouse%20gamer/400"),
-    ("p002", "product002", 899.99, "The best product 002", "https://picsum.photos/seed/Monitor/400"),
-    ("p003", "product003", 799.99, "The best product 003", "https://picsum.photos/seed/house/400"),
-    ("p004", "product004", 699.99, "The best product 004", "https://picsum.photos/seed/street/400"),
-    ("p005", "product005", 599.99, "The best product 005", "https://picsum.photos/seed/soccer/400");
+    ("p001", "Monitor 001", 999.99, "The best product 001", "https://picsum.photos/seed/Mouse%20gamer/400"),
+    ("p002", "Mouse 002", 899.99, "The best product 002", "https://picsum.photos/seed/Monitor/400"),
+    ("p003", "Keyboard 003", 799.99, "The best product 003", "https://picsum.photos/seed/house/400"),
+    ("p004", "Gamer Keyboard 004", 699.99, "The best product 004", "https://picsum.photos/seed/street/400"),
+    ("p005", "Notebook 005", 599.99, "The best product 005", "https://picsum.photos/seed/soccer/400");
 
--- Query Get All Users
--- Query para mostrar tabela users
-SELECT * FROM users;
+--Deletando todos as linhas da tabela products
+DELETE FROM products;
 
 -- Query Get All Products
--- Mostrando tabela products
 SELECT * FROM products;
+
+-- Query Get All Products com termo de busca
+SELECT * FROM products
+WHERE name LIKE '%game%';
