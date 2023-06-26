@@ -1,6 +1,6 @@
 -- Active: 1687289759464@@127.0.0.1@3306
 
------------------------ QUERIES TABLE USERS ----------------------
+-- =================== QUERIES TABLE USERS =====================
 
 --Query de criação da tabela de users
 CREATE TABLE users (
@@ -34,7 +34,7 @@ DELETE FROM users
 WHERE id = "u006";
 
 
----------------------- QUERIES PRODUCTS -----------------------------
+-- =================== QUERIES PRODUCTS ==========================
 
 -- Query de criação da tabela products
 CREATE TABLE products (
@@ -80,3 +80,39 @@ SET name = "Notebook 0006",
     description = "",
     image_url = ""
 WHERE id = "p006";
+
+-- ============================== Queries Purchases =========================
+--purchases table creation query
+CREATE TABLE purchases (
+    id TEXT PRIMARY KEY UNIQUE NOT NULL,
+    buyer TEXT NOT NULL,
+    total_price REAL NOT NULL,
+    created_at TEXT NOT NULL,
+    FOREIGN KEY (buyer) REFERENCES users(id)
+);
+
+--Populating purchases table
+INSERT INTO purchases (id, buyer, total_price, created_at)
+VALUES
+    ("b001", "u001", 10000, "26/06/2023"),
+    ("b002", "u001", 20000, "28/06/2023"),
+    ("b003", "u002", 30000, "25/06/2023"),
+    ("b004", "u003", 40000, "25/06/2023");
+
+-- Query UPDATE purchases
+UPDATE purchases
+SET
+    total_price = 9900
+WHERE id = "b001";
+
+--Query INNER JOIN purchases and users
+SELECT 
+    purchases.id AS purchase_id,
+    buyer AS buyer_id,
+    users.name AS buyer_name,
+    email AS buyer_email,
+    total_price,
+    purchases.created_at
+FROM purchases
+INNER JOIN users
+ON purchases.buyer = users.id;   
