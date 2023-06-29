@@ -155,6 +155,7 @@ VALUES
     ("pur004", "p005", 15);
 
 -- Fazendo consulta com junção INNER JOIN
-SELECT * FROM purchases
-INNER JOIN purchases_products ON purchases.id = purchases_products.purchase_id
+SELECT *
+FROM purchases_products
+INNER JOIN purchases ON purchases.id = purchases_products.purchase_id
 INNER JOIN products ON products.id = purchases_products.product_id;
