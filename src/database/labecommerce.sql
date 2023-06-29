@@ -26,6 +26,10 @@ VALUES
 -- Query para mostrar tabela users
 SELECT * FROM users;
 
+UPDATE users
+SET email = "user001@email"
+WHERE id = "u001";
+
 -- Query Create User
 INSERT INTO users (id, name, email, password)
 VALUES
@@ -78,9 +82,9 @@ WHERE id = "p006";
 -- Query Update product by id
 UPDATE products
 SET name = "Notebook 0006",
-    price = 100,
-    description = "",
-    image_url = ""
+    price = 100000,
+    description = "The best product 006 alterado",
+    image_url = "https://picsum.photos/seed/summer/400"
 WHERE id = "p006";
 
 -- ============================== Queries Purchases =========================
@@ -91,6 +95,8 @@ CREATE TABLE IF NOT EXISTS purchases (
     total_price REAL NOT NULL,
     created_at TEXT DEFAULT(DATETIME('now', 'localtime')) NOT NULL,
     FOREIGN KEY (buyer) REFERENCES users(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
 --Populating purchases table
@@ -106,7 +112,7 @@ DROP TABLE purchases;
 -- Query UPDATE purchases
 UPDATE purchases
 SET
-    total_price = 9900
+    total_price = 98000
 WHERE id = "pur001";
 
 --Query INNER JOIN purchases and users
@@ -120,7 +126,7 @@ SELECT
 FROM purchases
 INNER JOIN users
 ON purchases.buyer = users.id
-WHERE users.id = "u002";   
+/* WHERE users.id = "u002" */;   
 
 -- =========================== TABELA DE RELAÇÕES purchases_products ==========================
 -- Criando tabela de relação purchases_products
@@ -128,9 +134,15 @@ CREATE TABLE IF NOT EXISTS purchases_products (
     purchase_id TEXT NOT NULL,
     product_id TEXT NOT NULL,
     quantity INTEGER NOT NULL,
-    FOREIGN KEY (purchase_id) REFERENCES purchases(id),
+    FOREIGN KEY (purchase_id) REFERENCES purchases(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES products(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
+
+DROP TABLE purchases_products;
 
 -- Populando tabela purchase_products
 INSERT INTO purchases_products (purchase_id, product_id, quantity)
