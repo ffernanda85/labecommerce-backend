@@ -131,3 +131,18 @@ CREATE TABLE IF NOT EXISTS purchases_products (
     FOREIGN KEY (purchase_id) REFERENCES purchases(id),
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
+
+-- Populando tabela purchase_products
+INSERT INTO purchases_products (purchase_id, product_id, quantity)
+VALUES
+    ("pur001", "p001", 3),
+    ("pur001", "p002", 5),
+    ("pur002", "p003", 1),
+    ("pur002", "p004", 2),
+    ("pur003", "p005", 10),
+    ("pur004", "p005", 15);
+
+-- Fazendo consulta com junção INNER JOIN
+SELECT * FROM purchases
+INNER JOIN purchases_products ON purchases.id = purchases_products.purchase_id
+INNER JOIN products ON products.id = purchases_products.product_id;
