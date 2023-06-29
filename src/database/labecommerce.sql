@@ -121,3 +121,13 @@ FROM purchases
 INNER JOIN users
 ON purchases.buyer = users.id
 WHERE users.id = "u002";   
+
+-- =========================== TABELA DE RELAÇÕES purchases_products ==========================
+-- Criando tabela de relação purchases_products
+CREATE TABLE IF NOT EXISTS purchases_products (
+    purchase_id TEXT NOT NULL,
+    product_id TEXT NOT NULL,
+    quantity INTEGER NOT NULL,
+    FOREIGN KEY (purchase_id) REFERENCES purchases(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
