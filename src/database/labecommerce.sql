@@ -16,28 +16,26 @@ DROP TABLE users;
 --Query para popular a tabela users
 INSERT INTO users (id, name, email, password)
 VALUES
-    ("u001", "user001", "user001@gmail.com", "user001"),
-    ("u002", "user002", "user002@gmail.com", "user002"),
-    ("u003", "user003", "user003@gmail.com", "user003"),
-    ("u004", "user004", "user004@gmail.com", "user004"),
-    ("u005", "user005", "user005@gmail.com", "user005");
+    ("u001", "Manoel", "manoel@gmail.com", "mane123"),
+    ("u002", "Zé", "ze@gmail.com", "zezin123"),
+    ("u003", "Maria", "maria@gmail.com", "maria123");
 
 -- Query Get All Users
 -- Query para mostrar tabela users
 SELECT * FROM users;
 
 UPDATE users
-SET email = "user001@email"
+SET email = "manoel1@gmail.com"
 WHERE id = "u001";
 
 -- Query Create User
 INSERT INTO users (id, name, email, password)
 VALUES
-    ("u006", "user006", "user006@gmail.com", "user006");
+    ("u004", "Luzia", "luzia@gmail.com", "lulu123");
 
 --Delete user by id
 DELETE FROM users
-WHERE id = "u006";
+WHERE id = "u004";
 
 
 -- =================== QUERIES PRODUCTS ==========================
@@ -57,11 +55,11 @@ DROP TABLE products;
 -- Populando a tabela products
 INSERT INTO products (id, name, price, description, image_url)
 VALUES
-    ("p001", "Monitor 001", 999.99, "The best product 001", "https://picsum.photos/seed/Mouse%20gamer/400"),
-    ("p002", "Mouse 002", 899.99, "The best product 002", "https://picsum.photos/seed/Monitor/400"),
-    ("p003", "Keyboard 003", 799.99, "The best product 003", "https://picsum.photos/seed/house/400"),
-    ("p004", "Gamer Keyboard 004", 699.99, "The best product 004", "https://picsum.photos/seed/street/400"),
-    ("p005", "Notebook 005", 599.99, "The best product 005", "https://picsum.photos/seed/soccer/400");
+    ("p001", "Monitor 001", 999.99, "The best Monitor 001", "https://picsum.photos/seed/Mouse%20gamer/400"),
+    ("p002", "Mouse 002", 899.99, "The best Mouse 002", "https://picsum.photos/seed/Monitor/400"),
+    ("p003", "Keyboard 003", 799.99, "The best Keyboard 003", "https://picsum.photos/seed/house/400"),
+    ("p004", "Gamer Keyboard 004", 699.99, "The best Gamer 004", "https://picsum.photos/seed/street/400"),
+    ("p005", "Notebook Gamer 005", 599.99, "The best Notebook 005", "https://picsum.photos/seed/soccer/400");
 
 -- Query Get All Products
 SELECT * FROM products;
@@ -126,7 +124,7 @@ SELECT
 FROM purchases
 INNER JOIN users
 ON purchases.buyer = users.id
-/* WHERE users.id = "u002" */;   
+WHERE users.id = "u002";   
 
 -- =========================== TABELA DE RELAÇÕES purchases_products ==========================
 -- Criando tabela de relação purchases_products
@@ -148,10 +146,7 @@ DROP TABLE purchases_products;
 INSERT INTO purchases_products (purchase_id, product_id, quantity)
 VALUES
     ("pur001", "p001", 3),
-    ("pur001", "p002", 5),
-    ("pur002", "p003", 1),
     ("pur002", "p004", 2),
-    ("pur003", "p005", 10),
     ("pur004", "p005", 15);
 
 -- Fazendo consulta com junção INNER JOIN
@@ -159,3 +154,18 @@ SELECT *
 FROM purchases_products
 INNER JOIN purchases ON purchases.id = purchases_products.purchase_id
 INNER JOIN products ON products.id = purchases_products.product_id;
+
+SELECT
+    purchase_id,
+    quantity,
+    product_id,
+    products.name AS productName,
+    price AS productPrice,
+    total_price AS totalPrice,
+    purchases.created_at AS datePurchase,
+    buyer AS buyerId,
+    users.name AS userName
+FROM purchases_products
+INNER JOIN products ON products.id = purchases_products.product_id
+INNER JOIN purchases ON purchases.id = purchases_products.purchase_id
+INNER JOIN users ON users.id = purchases.buyer;
