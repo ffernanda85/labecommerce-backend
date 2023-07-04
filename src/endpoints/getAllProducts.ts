@@ -25,6 +25,7 @@ export const getAllProducts = async (req: Request, res: Response) => {
           "image_url AS imageUrl"
         )
         .where("name", "LIKE", `%${q}%`)
+        .orderBy("productId", "ASC")
       
      /*  if (result.length < 1) {
         res.status(404);
@@ -42,6 +43,8 @@ export const getAllProducts = async (req: Request, res: Response) => {
         "description",
         "image_url AS imageUrl"
       )
+      .orderBy("productId", "ASC")
+    
     res.status(200).send(result);
 
   } catch (error) {
