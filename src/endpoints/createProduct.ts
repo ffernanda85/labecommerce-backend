@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { products } from "../dataBase";
+import { db } from "../database/knex";
 import { TProduct } from "../types";
 
-export function createProduct( req: Request, res: Response) {
+export async function createProduct( req: Request, res: Response) {
     try {
         //Desestruturando e recebendo dados do req.body
         const { id, name, price, description, imageUrl } = req.body;
@@ -21,14 +21,7 @@ export function createProduct( req: Request, res: Response) {
         if (typeof id !== "string" || id.length < 1) {
           res.status(400);
           throw new Error("Invalid 'Id'. Enter a valid string");
-        } else {
-          //verificando se o Id já existe
-          const findId = products.find((product) => product.id === id);
-          if (findId) {
-            res.status(409);
-            throw new Error("This 'Id' already exists");
-          }
-        }
+        } 
         //verifica se name é string e tem pelo menos 1 caractere
         if (typeof name !== "string" || name.length < 1) {
           res.status(400);
@@ -37,7 +30,7 @@ export function createProduct( req: Request, res: Response) {
         //validando o price
         if (typeof price !== "number" || price <= 0) {
           res.status(400);
-          throw new Error("Invalid 'price'. Enter a valid number");
+          throw new Error("Invalid 'price'. Enter a valid price");
         }
         //verifica se description é string e tem pelo menos 1 caractere
         if (typeof description !== "string" || description.length < 1) {
@@ -57,20 +50,11 @@ export function createProduct( req: Request, res: Response) {
           description,
           imageUrl,
         };
-    
-        products.push(newProduct);
-    
-        products.sort((a, b) => {
-          if (a.id < b.id) {
-            return -1;
-          } else if (a.id > b.id) {
-            return 1;
-          } else {
-            return 0;
-          }
-        });
-    
-        res.status(201).send("Registered Product!");
+        
+        //inserindo newProduct na tabela products
+        await db("products").insert(newProduct)  
+        //alterando o status e enviando a mensagem de registro com sucesso
+        res.status(201).send({ message: "Registered Product!" });
           
       } catch (error) {
         if (res.statusCode === 200) {
