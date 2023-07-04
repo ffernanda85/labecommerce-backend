@@ -49,7 +49,7 @@ export async function createUser(req: Request, res: Response) {
       name,
       email,
       password,
-      createdAt: new Date().toISOString(),
+      createdAt: new Date().toISOString()
     };
     //Inserindo newUser na tabela users
     await db("users").insert(newUser)

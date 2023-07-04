@@ -22,7 +22,7 @@ export const getAllProducts = async (req: Request, res: Response) => {
           "name AS productName",
           "price",
           "description",
-          "image_url AS imageUrl"
+          "imageUrl"
         )
         .where("name", "LIKE", `%${q}%`)
         .orderBy("productId", "ASC")
@@ -41,7 +41,7 @@ export const getAllProducts = async (req: Request, res: Response) => {
         "name AS productName",
         "price",
         "description",
-        "image_url AS imageUrl"
+        "imageUrl"
       )
       .orderBy("productId", "ASC")
     

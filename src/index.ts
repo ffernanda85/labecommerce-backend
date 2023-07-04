@@ -7,6 +7,7 @@ import { createProduct } from "./endpoints/createProduct";
 import { deleteUserById } from "./endpoints/deleteUserById";
 import { deleteProductById } from "./endpoints/deleteProductById";
 import { updateProductById } from "./endpoints/updateProductById";
+import { createPurchase } from "./endpoints/createPurchase";
 
 //criando o servidor express
 const app = express();
@@ -36,6 +37,8 @@ app.get("/products", getAllProducts);
 app.post("/users", createUser);
 //create Product
 app.post("/products", createProduct);
+//create purchase
+app.post("/purchases", createPurchase);
 //delete User By Id
 app.delete("/users/:id", deleteUserById);
 //delete Product By Id
