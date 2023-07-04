@@ -56,7 +56,7 @@ export async function createProduct( req: Request, res: Response) {
         //alterando o status e enviando a mensagem de registro com sucesso
         res.status(201).send({ message: "Registered Product!" });
           
-      } catch (error) {
+      } catch (error: unknown) {
         if (res.statusCode === 200) {
           res.status(500);
         }

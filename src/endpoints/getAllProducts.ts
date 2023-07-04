@@ -24,24 +24,23 @@ export const getAllProducts = async (req: Request, res: Response) => {
           "description",
           "imageUrl"
         )
-        .orderBy("id", "ASC")
-        .where("name", "LIKE", `%${name}%`)
-                 
+        .where("name", "LIKE", `%${name}%`);
+
       res.status(200).send(result);
-    }
-    //se o name não for enviado pela query mostra todos os produtos
-    const result = await db("products")
-      .select(
+    } else {
+      //se o name não for enviado pela query mostra todos os produtos
+      const result = await db("products").select(
         "id AS productId",
         "name AS productName",
         "price",
         "description",
         "imageUrl"
-      )
-          
-    res.status(200).send(result);
+      );
 
-  } catch (error) {
+      res.status(200).send(result);
+    }
+
+  } catch (error: unknown) {
     if (res.statusCode === 200) {
       res.status(500);
     }
@@ -51,4 +50,4 @@ export const getAllProducts = async (req: Request, res: Response) => {
       res.send("Unexpected error!");
     }
   }
-}
+};

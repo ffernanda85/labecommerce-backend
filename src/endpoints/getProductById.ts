@@ -15,7 +15,7 @@ export async function getProductById(req: Request, res: Response) {
       }
       res.status(200).send(result)
 
-  } catch (error) {
+  } catch (error:unknown) {
     //garante que o status seja alterado do padrão caso ocorra um erro inesperado
     //já que o valor do status padrão é 200
     if (res.statusCode === 200) {

@@ -15,7 +15,7 @@ export function deleteUserById(req: Request, res: Response) {
         users.splice(findIndexUser, 1);
         res.status(200).send("Deleted user");
     
-      } catch (error) {
+      } catch (error:unknown) {
         if (res.statusCode === 200) {
           res.status(500);
         }

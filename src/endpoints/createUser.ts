@@ -56,7 +56,7 @@ export async function createUser(req: Request, res: Response) {
     //alterando o status para 201 e retornando a mensagem de cadastro realizado com sucesso
     res.status(201).send({ message: "Registered user!" });
 
-  } catch (error) {
+  } catch (error:unknown) {
     if (res.statusCode === 200) {
       res.status(500);
     }

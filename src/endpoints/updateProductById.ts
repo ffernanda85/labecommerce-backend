@@ -48,7 +48,7 @@ export function updateProductById(req: Request, res: Response) {
 
         res.status(200).send("Update product")
 
-    } catch (error) {
+    } catch (error:unknown) {
         if (res.statusCode === 200) {
             res.status(500);
           }

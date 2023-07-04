@@ -16,7 +16,7 @@ export function deleteProductById(req: Request, res: Response) {
         products.splice(findIndexProduct, 1);
         res.status(200).send("Deleted product");
           
-      } catch (error) {
+      } catch (error:unknown) {
         if (res.statusCode === 200) {
           res.status(500);
         }
