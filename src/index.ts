@@ -8,6 +8,7 @@ import { deleteUserById } from "./endpoints/deleteUserById";
 import { deleteProductById } from "./endpoints/deleteProductById";
 import { updateProductById } from "./endpoints/updateProductById";
 import { createPurchase } from "./endpoints/createPurchase";
+import { getProductById } from "./endpoints/getProductById";
 
 //criando o servidor express
 const app = express();
@@ -33,6 +34,8 @@ app.get("/ping", (req: Request, res: Response) => {
 app.get("/users", getAllUsers);
 //Get All Products
 app.get("/products", getAllProducts);
+//Get Product By Id
+app.get("/products/:id", getProductById)
 //create User
 app.post("/users", createUser);
 //create Product
