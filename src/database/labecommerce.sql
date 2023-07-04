@@ -92,7 +92,6 @@ CREATE TABLE IF NOT EXISTS purchases (
     buyer TEXT NOT NULL,
     totalPrice REAL NOT NULL,
     createdAt TEXT DEFAULT(DATETIME('now', 'localtime')) NOT NULL,
-    paid INTEGER NOT NULL,
     FOREIGN KEY (buyer) REFERENCES users(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE

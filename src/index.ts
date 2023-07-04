@@ -35,7 +35,7 @@ app.get("/users", getAllUsers);
 //Get All Products
 app.get("/products", getAllProducts);
 //Get Product By Id
-app.get("/products/:id", getProductById)
+app.get("/products/:id", getProductById);
 //create User
 app.post("/users", createUser);
 //create Product

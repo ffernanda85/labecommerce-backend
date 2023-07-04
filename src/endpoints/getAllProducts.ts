@@ -3,15 +3,15 @@ import { db } from "../database/knex";
 
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
-    const q = req.query.name;
+    const name = req.query.name;
     //verifica se name está sendo enviado pela query
-    if (q !== undefined) {
-      if (typeof q !== "string") {
+    if (name !== undefined) {
+      if (typeof name !== "string") {
         res.status(400);
         throw new Error("Invalid 'name'. Enter a string");
       }
       //forçando um erro caso o name tenha menos de 01 caracter
-      if (q.length < 1) {
+      if (name.length < 1) {
         res.status(400);
         throw new Error("Invalid name! Enter more than one character");
       }
@@ -24,14 +24,9 @@ export const getAllProducts = async (req: Request, res: Response) => {
           "description",
           "imageUrl"
         )
-        .where("name", "LIKE", `%${q}%`)
-        .orderBy("productId", "ASC")
-      
-     /*  if (result.length < 1) {
-        res.status(404);
-        throw new Error("Invalid name! Product name not found!");
-      } */
-      
+        .orderBy("id", "ASC")
+        .where("name", "LIKE", `%${name}%`)
+                 
       res.status(200).send(result);
     }
     //se o name não for enviado pela query mostra todos os produtos
@@ -43,8 +38,7 @@ export const getAllProducts = async (req: Request, res: Response) => {
         "description",
         "imageUrl"
       )
-      .orderBy("productId", "ASC")
-    
+          
     res.status(200).send(result);
 
   } catch (error) {

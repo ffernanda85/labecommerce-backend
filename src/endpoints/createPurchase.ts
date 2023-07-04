@@ -4,13 +4,12 @@ import { db } from "../database/knex";
 export async function createPurchase(req:Request, res:Response) {
     try {
         //desestruturando as query params recebidas via body
-        const { id, buyer, totalPrice, paid } = req.body
+        const { id, buyer, totalPrice } = req.body
         //verificando se todas as informações foram enviadas na requisição
         if (
             id === undefined ||
             buyer === undefined ||
-            totalPrice === undefined ||
-            paid === undefined
+            totalPrice === undefined
         ) {
             res.status(400);
             throw new Error("Enter all the necessary information!");
@@ -25,18 +24,13 @@ export async function createPurchase(req:Request, res:Response) {
             res.status(400);
             throw new Error("Invalid 'totalPrice'. Enter a valid number");
         }
-        //validando paid
-        if (paid !== 1 && paid !== 0 ) {
-            res.status(400);
-            throw new Error("Invalid 'paid'. Enter a valid number: '1' or '0'");
-        }
+       
         //criando item a ser inserido na tabela
         const newPurchase = {
             id,
             buyer,
             totalPrice,
-            createdAt: new Date().toISOString(),
-            paid
+            createdAt: new Date().toISOString()
         }
         //inserindo newPurchase na tabela purchases
         await db("purchases").insert(newPurchase)
