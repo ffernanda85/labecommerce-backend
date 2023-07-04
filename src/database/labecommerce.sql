@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
     name TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
-    created_at TEXT DEFAULT(DATETIME('now', 'localtime')) NOT NULL
+    createdAt TEXT DEFAULT(DATETIME('now', 'localtime')) NOT NULL
 );
 
 DROP TABLE users;
@@ -46,14 +46,14 @@ CREATE TABLE IF NOT EXISTS products (
     name TEXT NOT NULL,
     price REAL NOT NULL,
     description TEXT NOT NULL,
-    image_url TEXT NOT NULL
+    imageUrl TEXT NOT NULL
 );
 
 -- Delete Table Products
 DROP TABLE products;
 
 -- Populando a tabela products
-INSERT INTO products (id, name, price, description, image_url)
+INSERT INTO products (id, name, price, description, imageUrl)
 VALUES
     ("p001", "Monitor 001", 999.99, "The best Monitor 001", "https://picsum.photos/seed/Mouse%20gamer/400"),
     ("p002", "Mouse 002", 899.99, "The best Mouse 002", "https://picsum.photos/seed/Monitor/400"),
@@ -69,7 +69,7 @@ SELECT * FROM products
 WHERE LOWER(name) LIKE LOWER('%game%');
 
 -- Query Create Product
-INSERT INTO products (id, name, price, description, image_url)
+INSERT INTO products (id, name, price, description, imageUrl)
 VALUES
     ("p006", "Notebook 006", 499.99, "The best product 006", "https://picsum.photos/seed/summer/400");
 
@@ -82,7 +82,7 @@ UPDATE products
 SET name = "Notebook 0006",
     price = 100000,
     description = "The best product 006 alterado",
-    image_url = "https://picsum.photos/seed/summer/400"
+    imageUrl = "https://picsum.photos/seed/summer/400"
 WHERE id = "p006";
 
 -- ============================== Queries Purchases =========================
@@ -90,8 +90,9 @@ WHERE id = "p006";
 CREATE TABLE IF NOT EXISTS purchases (
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
     buyer TEXT NOT NULL,
-    total_price REAL NOT NULL,
-    created_at TEXT DEFAULT(DATETIME('now', 'localtime')) NOT NULL,
+    totalPrice REAL NOT NULL,
+    createdAt TEXT DEFAULT(DATETIME('now', 'localtime')) NOT NULL,
+    paid INTEGER NOT NULL,
     FOREIGN KEY (buyer) REFERENCES users(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE

@@ -1,32 +1,49 @@
 import { Request, Response } from "express";
-import { products } from "../dataBase";
+import { db } from "../database/knex";
 
-export function getAllProducts(req: Request, res: Response) {
+export const getAllProducts = async (req: Request, res: Response) => {
   try {
-    const name = req.query.name;
-
+    const q = req.query.name;
     //verifica se name está sendo enviado pela query
-    if (name !== undefined) {
-      if (typeof name !== "string") {
+    if (q !== undefined) {
+      if (typeof q !== "string") {
         res.status(400);
         throw new Error("Invalid 'name'. Enter a string");
       }
       //forçando um erro caso o name tenha menos de 01 caracter
-      if (name.length < 1) {
+      if (q.length < 1) {
         res.status(400);
         throw new Error("Invalid name! Enter more than one character");
       }
       //verificando se o name enviado é compativel com algum produto, caso sim retorna o produto, se não retorna todos os produtos
-      const filterProduct = products.filter((product) =>
-        product.name.toLowerCase().includes(name.toLowerCase())
-      );
-      filterProduct.length > 0
-        ? res.status(200).send(filterProduct)
-        : res.status(200).send(products);
-      }
+      const result = await db("products")
+        .select(
+          "id AS productId",
+          "name AS productName",
+          "price",
+          "description",
+          "image_url AS imageUrl"
+        )
+        .where("name", "LIKE", `%${q}%`)
       
+     /*  if (result.length < 1) {
+        res.status(404);
+        throw new Error("Invalid name! Product name not found!");
+      } */
+      
+      res.status(200).send(result);
+    }
     //se o name não for enviado pela query mostra todos os produtos
-    res.status(200).send(products);
+    const result = await db("products")
+      .select(
+        "id AS productId",
+        "name AS productName",
+        "price",
+        "description",
+        "image_url AS imageUrl"
+      )
+    res.status(200).send(result);
+
   } catch (error) {
     if (res.statusCode === 200) {
       res.status(500);
