@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
     name TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
-    createdAt TEXT DEFAULT(DATETIME('now', 'localtime')) NOT NULL
+    created_at TEXT DEFAULT(DATETIME('now', 'localtime')) NOT NULL
 );
 
 DROP TABLE users;
