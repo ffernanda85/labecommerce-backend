@@ -1,17 +1,10 @@
 import { Request, Response } from "express";
 import { db } from "../database/knex";
-import { TProduct } from "../types";
 
 export const updateProductById = async (req: Request, res: Response) => {
   try {
     const idToUpdate = req.params.id;
-
     const { id, name, price, description, image_url } = req.body
-    /* const newId = req.body.id
-    const newName = req.body.name
-    const newPrice = req.body.price
-    const newDescription = req.body.description
-    const newImageUrl = req.body.image_url */
       
       if (id !== undefined) {
         if (typeof id !== "string" || id.length < 1) {
@@ -50,9 +43,7 @@ export const updateProductById = async (req: Request, res: Response) => {
           throw new Error("Invalid 'imageUrl'. Enter a valid string");
         }
       }
-
     const [product] = await db("products").where({ id: idToUpdate });
-
     if (product) {
       const updateProduct = {
         id: id || product.id,
@@ -67,7 +58,6 @@ export const updateProductById = async (req: Request, res: Response) => {
       res.status(404);
       throw new Error("Product not found");
     }
-
     res.status(200).send({ message: "Update product" });
   
   } catch (error: unknown) {
