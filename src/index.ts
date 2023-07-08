@@ -6,7 +6,7 @@ import { createUser } from "./endpoints/createUser";
 import { createProduct } from "./endpoints/createProduct";
 //import { deleteUserById } from "./endpoints/deleteUserById";
 //import { deleteProductById } from "./endpoints/deleteProductById";
-//import { updateProductById } from "./endpoints/updateProductById";
+import { updateProductById } from "./endpoints/updateProductById";
 import { createPurchase } from "./endpoints/createPurchase";
 import { getProductById } from "./endpoints/getProductById";
 
@@ -42,4 +42,4 @@ app.post("/purchases", createPurchase);
 //delete Product By Id
 //app.delete("/products/:id", deleteProductById);
 //update Product By Id
-//app.put("/products/:id", updateProductById);
+app.put("/products/:id", updateProductById);
