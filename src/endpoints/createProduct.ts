@@ -5,14 +5,14 @@ import { TProduct } from "../types";
 export async function createProduct( req: Request, res: Response) {
     try {
         //Desestruturando e recebendo dados do req.body
-        const { id, name, price, description, imageUrl } = req.body;
+        const { id, name, price, description, image_url } = req.body;
         //validando o body
         if (
           id === undefined ||
           name === undefined ||
           price === undefined ||
           description === undefined ||
-          imageUrl === undefined
+          image_url === undefined
         ) {
           res.status(400);
           throw new Error("Enter all the necessary information!");
@@ -37,10 +37,10 @@ export async function createProduct( req: Request, res: Response) {
           res.status(400);
           throw new Error("Invalid 'description'. Enter a valid string");
         }
-        //validando imageURL
-        if (typeof imageUrl !== "string" || imageUrl.length < 1) {
+        //validando image_url
+        if (typeof image_url !== "string" || image_url.length < 1) {
           res.status(400);
-          throw new Error("Invalid 'imageURL'. Enter a string");
+          throw new Error("Invalid 'image_url'. Enter a string");
         }
         //criando o newProduct com as informações validadas do body
         const newProduct: TProduct = {
@@ -48,7 +48,7 @@ export async function createProduct( req: Request, res: Response) {
           name,
           price,
           description,
-          imageUrl,
+          image_url,
         };
         
         //inserindo newProduct na tabela products
