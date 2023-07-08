@@ -90,8 +90,8 @@ WHERE id = "p006";
 CREATE TABLE IF NOT EXISTS purchases (
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
     buyer TEXT NOT NULL,
-    totalPrice REAL NOT NULL,
-    createdAt TEXT DEFAULT(DATETIME('now', 'localtime')) NOT NULL,
+    total_price REAL NOT NULL,
+    created_at TEXT DEFAULT(DATETIME('now', 'localtime')) NOT NULL,
     FOREIGN KEY (buyer) REFERENCES users(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
