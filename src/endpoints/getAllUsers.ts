@@ -4,6 +4,13 @@ import { db } from "../database/knex";
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
     const result = await db('users')
+      .select(
+        "id",
+        "name",
+        "email",
+        "password",
+        "created_at AS createdAt"
+      )
     res.status(200).send(result);
   } catch (error : unknown) {
     //garante que o status seja alterado do padrão caso ocorra um erro inesperado

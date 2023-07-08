@@ -44,12 +44,11 @@ export async function createUser(req: Request, res: Response) {
     }
     
     //criando o novo usuário com os dados validados
-    const newUser: TUser = {
+    const newUser = {
       id,
       name,
       email,
-      password,
-      createdAt: new Date().toISOString()
+      password
     };
     //Inserindo newUser na tabela users
     await db("users").insert(newUser)
