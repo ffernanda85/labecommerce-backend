@@ -4,9 +4,9 @@ import { getAllUsers } from "./endpoints/getAllUsers";
 import { getAllProducts } from "./endpoints/getAllProducts";
 import { createUser } from "./endpoints/createUser";
 import { createProduct } from "./endpoints/createProduct";
-import { deleteUserById } from "./endpoints/deleteUserById";
-import { deleteProductById } from "./endpoints/deleteProductById";
-import { updateProductById } from "./endpoints/updateProductById";
+//import { deleteUserById } from "./endpoints/deleteUserById";
+//import { deleteProductById } from "./endpoints/deleteProductById";
+//import { updateProductById } from "./endpoints/updateProductById";
 import { createPurchase } from "./endpoints/createPurchase";
 import { getProductById } from "./endpoints/getProductById";
 
@@ -38,8 +38,8 @@ app.post("/products", createProduct);
 //create purchase
 app.post("/purchases", createPurchase);
 //delete User By Id
-app.delete("/users/:id", deleteUserById);
+//app.delete("/users/:id", deleteUserById);
 //delete Product By Id
-app.delete("/products/:id", deleteProductById);
+//app.delete("/products/:id", deleteProductById);
 //update Product By Id
-app.put("/products/:id", updateProductById);
+//app.put("/products/:id", updateProductById);

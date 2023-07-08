@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+/* import { Request, Response } from "express";
 import { products } from "../dataBase";
 
 export function updateProductById(req: Request, res: Response) {
@@ -58,4 +58,4 @@ export function updateProductById(req: Request, res: Response) {
             res.send("Unexpected error!");
           }
     }
-}
+} */

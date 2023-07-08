@@ -48,7 +48,7 @@ export async function createProduct( req: Request, res: Response) {
           name,
           price,
           description,
-          image_url,
+          image_url
         };
         
         //inserindo newProduct na tabela products

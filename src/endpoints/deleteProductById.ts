@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+/* import { Request, Response } from "express";
 import { products } from "../dataBase";
 
 export function deleteProductById(req: Request, res: Response) {
@@ -26,4 +26,4 @@ export function deleteProductById(req: Request, res: Response) {
           res.send("Unexpected error!");
         }
       }
-}
+} */

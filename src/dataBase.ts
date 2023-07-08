@@ -1,4 +1,4 @@
-import { TProduct, TUser } from "./types";
+/* import { TProduct, TUser } from "./types";
 
 export const users: TUser[] = [
     {
@@ -33,3 +33,4 @@ export const products: Array<TProduct> = [
         image_url: "https://picsum.photos/seed/Monitor/400"
     }
 ]
+ */

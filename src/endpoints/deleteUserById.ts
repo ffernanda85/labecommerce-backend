@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+/* import { Request, Response } from "express";
 import { users } from "../dataBase";
 
 export function deleteUserById(req: Request, res: Response) {
@@ -25,4 +25,4 @@ export function deleteUserById(req: Request, res: Response) {
           res.send("Unexpected error!");
         }
       }
-}
+} */

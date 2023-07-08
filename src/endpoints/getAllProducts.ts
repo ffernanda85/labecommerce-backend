@@ -18,11 +18,11 @@ export const getAllProducts = async (req: Request, res: Response) => {
       //verificando se o name enviado é compativel com algum produto, caso sim retorna o produto, se não retorna todos os produtos
       const result = await db("products")
         .select(
-          "id AS productId",
-          "name AS productName",
+          "id",
+          "name",
           "price",
           "description",
-          "imageUrl"
+          "image_url AS imageUrl"
         )
         .where("name", "LIKE", `%${name}%`);
 
@@ -30,11 +30,11 @@ export const getAllProducts = async (req: Request, res: Response) => {
     } else {
       //se o name não for enviado pela query mostra todos os produtos
       const result = await db("products").select(
-        "id AS productId",
-        "name AS productName",
+        "id",
+        "name",
         "price",
         "description",
-        "imageUrl"
+        "image_url AS imageUrl"
       );
 
       res.status(200).send(result);
