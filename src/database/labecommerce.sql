@@ -140,6 +140,8 @@ CREATE TABLE IF NOT EXISTS purchases_products (
         ON DELETE CASCADE
 );
 
+DELETE FROM purchases WHERE id = "pur001";
+
 DROP TABLE purchases_products;
 
 -- Populando tabela purchase_products
