@@ -9,6 +9,7 @@ import { createProduct } from "./endpoints/createProduct";
 import { updateProductById } from "./endpoints/updateProductById";
 import { createPurchase } from "./endpoints/createPurchase";
 import { getProductById } from "./endpoints/getProductById";
+import { deletePurchaseById } from "./endpoints/deletePurchaseById";
 
 //criando o servidor express
 const app = express();
@@ -37,6 +38,8 @@ app.post("/users", createUser);
 app.post("/products", createProduct);
 //create purchase
 app.post("/purchases", createPurchase);
+//delete Purchase By Id
+app.delete("/purchases/:id", deletePurchaseById);
 //delete User By Id
 //app.delete("/users/:id", deleteUserById);
 //delete Product By Id
