@@ -27,14 +27,13 @@ export async function createPurchase(req: Request, res: Response) {
       res.status(400);
       throw new Error("Invalid 'total_price'. Enter a valid number");
     }
-
+    //validando o array products
     if (products.length < 1) {
       res.status(400);
       throw new Error(
         "Enter all the necessary information!'Product Id' and 'quantity'"
       );
     }
-
     //for of para percorrer o array de products e fazer as validações do id e quantity
     for (let product of products) {
       //verificando se ambas as informações foram enviadas (id e quantity)
@@ -50,11 +49,9 @@ export async function createPurchase(req: Request, res: Response) {
         throw new Error("Invalid product 'Id'. Enter a valid string");
       }
       //validações do quantity do produto
-      if (product.quantity !== undefined) {
-        if (typeof product.quantity !== "number" || product.quantity <= 0) {
-          res.status(400);
-          throw new Error("Invalid product 'quantity'. Enter a valid number");
-        }
+      if (typeof product.quantity !== "number" || product.quantity <= 0) {
+        res.status(400);
+        throw new Error("Invalid product 'quantity'. Enter a valid number");
       }
     }
     //validações no banco de dados quanto a purchases
@@ -73,22 +70,12 @@ export async function createPurchase(req: Request, res: Response) {
     //validações no banco de dados quanto a products
     for (let product of products) {
       //verificando se o produto está cadastrado em products
-      const [idProductExist] = await db("products").where({ id: product.id })
+      const [idProductExist] = await db("products").where({ id: product.id });
       if (!idProductExist) {
         res.status(400);
         throw new Error("'id'not registered in products");
       }
     }
-
-
-
-
-
-
-
-
-
-
     //criando item a ser inserido na tabela purchases
     const newPurchase = {
       id,
@@ -97,8 +84,7 @@ export async function createPurchase(req: Request, res: Response) {
     };
     //inserindo newPurchase na tabela purchases
     await db("purchases").insert(newPurchase);
-
-    //for para inserir os valores referentes a products na tabela de relação purchases_products
+    //inserindo os valores na tabela de relação purchases_products
     for (let product of products) {
       //criando o objeto a ser inserido na tabela purchases_products
       const newPurchase_Product = {
