@@ -3,11 +3,8 @@ import { db } from "../../database/knex";
 
 export async function getProductById(req: Request, res: Response) {
   try {
-  
       const id = req.params.id
-      
-      const [ result ] = await db("products")
-          .where({ id: id })
+      const [ result ] = await db("products").where({ id: id })
       
       if (!result) {
         res.status(404);
