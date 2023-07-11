@@ -1,16 +1,16 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import cors from "cors";
 import { getAllUsers } from "./endpoints/users/getAllUsers";
 import { getAllProducts } from "./endpoints/products/getAllProducts";
 import { createUser } from "./endpoints/users/createUser";
 import { createProduct } from "./endpoints/products/createProduct";
-//import { deleteUserById } from "./endpoints/users/deleteUserById";
 import { updateProductById } from "./endpoints/products/updateProductById";
 import { createPurchase } from "./endpoints/purchases/createPurchase";
 import { getProductById } from "./endpoints/products/getProductById";
 import { deletePurchaseById } from "./endpoints/purchases/deletePurchaseById";
 import { getPurchaseById } from "./endpoints/purchases/getPurchaseById";
 import { deleteProductById } from "./endpoints/products/deleteProductById";
+import { deleteUserById } from "./endpoints/users/deleteUserById";
 
 //criando o servidor express
 const app = express();
@@ -44,7 +44,7 @@ app.post("/purchases", createPurchase);
 //delete Purchase By Id
 app.delete("/purchases/:id", deletePurchaseById);
 //delete User By Id
-//app.delete("/users/:id", deleteUserById);
+app.delete("/users/:id", deleteUserById);
 //delete Product By Id
 app.delete("/products/:id", deleteProductById);
 //update Product By Id

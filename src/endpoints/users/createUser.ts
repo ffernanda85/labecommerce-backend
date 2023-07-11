@@ -36,7 +36,6 @@ export async function createUser(req: Request, res: Response) {
         throw new Error("Invalid email, try again!");
       }
     }
-
     //verifica se o password é string e tem pelo menos 1 caractere
     if (typeof password !== "string" || password.length < 1) {
       res.status(400);
@@ -44,7 +43,7 @@ export async function createUser(req: Request, res: Response) {
     }
     
     //criando o novo usuário com os dados validados
-    const newUser = {
+    const newUser: TUser = {
       id,
       name,
       email,

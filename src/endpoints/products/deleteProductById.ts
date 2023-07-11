@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { db } from "../../dataBase/knex";
+import { db } from "../../database/knex";
 
 export async function deleteProductById(req: Request, res: Response) {
   try {
