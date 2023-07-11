@@ -1,11 +1,10 @@
 /* import { Request, Response } from "express";
 import { products } from "../dataBase";
 
-export function deleteProductById(req: Request, res: Response) {
+export async function deleteProductById(req: Request, res: Response) {
     try {
         //atribuindo a constante id o path params id
         const id = req.params.id;
-    
         //verificando se o produto existe
         const findIndexProduct = products.findIndex((product) => product.id === id);
         if (findIndexProduct < 0) {

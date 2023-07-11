@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { db } from "../database/knex";
-import { TUser } from "../types";
+import { db } from "../../database/knex";
+import { TUser } from "../../types";
 
 export async function createUser(req: Request, res: Response) {
   try {

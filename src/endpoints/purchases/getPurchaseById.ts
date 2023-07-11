@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { db } from "../database/knex";
-import { TViewPurchase } from "../types";
+import { db } from "../../database/knex";
+import { TViewPurchase } from "../../types";
 
 export async function getPurchaseById(req: Request, res: Response) {
   try {

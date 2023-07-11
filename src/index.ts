@@ -1,16 +1,16 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
-import { getAllUsers } from "./endpoints/getAllUsers";
-import { getAllProducts } from "./endpoints/getAllProducts";
-import { createUser } from "./endpoints/createUser";
-import { createProduct } from "./endpoints/createProduct";
-//import { deleteUserById } from "./endpoints/deleteUserById";
-//import { deleteProductById } from "./endpoints/deleteProductById";
-import { updateProductById } from "./endpoints/updateProductById";
-import { createPurchase } from "./endpoints/createPurchase";
-import { getProductById } from "./endpoints/getProductById";
-import { deletePurchaseById } from "./endpoints/deletePurchaseById";
-import { getPurchaseById } from "./endpoints/getPurchaseById";
+import { getAllUsers } from "./endpoints/users/getAllUsers";
+import { getAllProducts } from "./endpoints/products/getAllProducts";
+import { createUser } from "./endpoints/users/createUser";
+import { createProduct } from "./endpoints/products/createProduct";
+//import { deleteUserById } from "./endpoints/users/deleteUserById";
+//import { deleteProductById } from "./endpoints/products/deleteProductById";
+import { updateProductById } from "./endpoints/products/updateProductById";
+import { createPurchase } from "./endpoints/purchases/createPurchase";
+import { getProductById } from "./endpoints/products/getProductById";
+import { deletePurchaseById } from "./endpoints/purchases/deletePurchaseById";
+import { getPurchaseById } from "./endpoints/purchases/getPurchaseById";
 
 //criando o servidor express
 const app = express();

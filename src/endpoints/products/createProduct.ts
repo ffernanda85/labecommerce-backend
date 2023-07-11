@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { db } from "../database/knex";
-import { TProduct } from "../types";
+import { db } from "../../database/knex";
+import { TProduct } from "../../types";
 
 export async function createProduct( req: Request, res: Response) {
     try {

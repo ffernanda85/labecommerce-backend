@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { db } from "../database/knex";
+import { db } from "../../database/knex";
 
 export async function createPurchase(req: Request, res: Response) {
   try {

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { db } from "../database/knex";
+import { db } from "../../database/knex";
 
 export const updateProductById = async (req: Request, res: Response) => {
   try {
