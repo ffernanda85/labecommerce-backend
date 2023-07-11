@@ -13,13 +13,15 @@ export async function createUser(req: Request, res: Response) {
       password === undefined
     ) {
       res.status(400);
-      throw new Error("Enter all the necessary information: id, name, email and password!");
+      throw new Error(
+        "Enter all the necessary information: id, name, email and password!"
+      );
     }
     //verifica id é string e tem pelo menos 1 caractere
     if (typeof id !== "string" || id.length < 1) {
       res.status(400);
       throw new Error("Invalid 'Id'. Enter a string");
-    } 
+    }
     //verifica se name é string e tem pelo menos 1 caractere
     if (typeof name !== "string" || name.length < 1) {
       res.status(400);
@@ -41,20 +43,25 @@ export async function createUser(req: Request, res: Response) {
       res.status(400);
       throw new Error("Invalid 'password'. Enter a string");
     }
-    
+    //validações no banco de dados
+    //verificando se o id informado já existe em algum cadastro
+    const [user] = await db("users").where({ id: id })
+    if (user) {
+      res.status(400)
+      throw new Error("'User Id' already registered");
+    }
     //criando o novo usuário com os dados validados
     const newUser: TUser = {
       id,
       name,
       email,
-      password
+      password,
     };
     //Inserindo newUser na tabela users
-    await db("users").insert(newUser)
+    await db("users").insert(newUser);
     //alterando o status para 201 e retornando a mensagem de cadastro realizado com sucesso
     res.status(201).send({ message: "Registered user!" });
-
-  } catch (error:unknown) {
+  } catch (error: unknown) {
     if (res.statusCode === 200) {
       res.status(500);
     }
