@@ -1,12 +1,16 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import cors from "cors";
-import { getAllUsers } from "./endpoints/getAllUsers";
-import { getAllProducts } from "./endpoints/getAllProducts";
-import { createUser } from "./endpoints/createUser";
-import { createProduct } from "./endpoints/createProduct";
-import { deleteUserById } from "./endpoints/deleteUserById";
-import { deleteProductById } from "./endpoints/deleteProductById";
-import { updateProductById } from "./endpoints/updateProductById";
+import { getAllUsers } from "./endpoints/users/getAllUsers";
+import { getAllProducts } from "./endpoints/products/getAllProducts";
+import { createUser } from "./endpoints/users/createUser";
+import { createProduct } from "./endpoints/products/createProduct";
+import { updateProductById } from "./endpoints/products/updateProductById";
+import { createPurchase } from "./endpoints/purchases/createPurchase";
+import { getProductById } from "./endpoints/products/getProductById";
+import { deletePurchaseById } from "./endpoints/purchases/deletePurchaseById";
+import { getPurchaseById } from "./endpoints/purchases/getPurchaseById";
+import { deleteProductById } from "./endpoints/products/deleteProductById";
+import { deleteUserById } from "./endpoints/users/deleteUserById";
 
 //criando o servidor express
 const app = express();
@@ -23,19 +27,22 @@ app.listen(3003, () => {
   console.log("Servidor rodando na porta 3003");
 });
 
-//metodo ping
-app.get("/ping", (req: Request, res: Response) => {
-  res.send("Pong!");
-});
-
 //Get All Users
 app.get("/users", getAllUsers);
 //Get All Products
 app.get("/products", getAllProducts);
+//Get Product By Id
+app.get("/products/:id", getProductById);
+//Get Purchase By Id
+app.get("/purchases/:id", getPurchaseById);
 //create User
 app.post("/users", createUser);
 //create Product
 app.post("/products", createProduct);
+//create purchase
+app.post("/purchases", createPurchase);
+//delete Purchase By Id
+app.delete("/purchases/:id", deletePurchaseById);
 //delete User By Id
 app.delete("/users/:id", deleteUserById);
 //delete Product By Id
