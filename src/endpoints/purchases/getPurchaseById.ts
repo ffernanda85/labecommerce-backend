@@ -41,11 +41,11 @@ export async function getPurchaseById(req: Request, res: Response) {
       )
       .where("purchases_products.purchase_id", "=", idToSelect);
 
-      const viewPurchaseById: TViewPurchase[] = {
-          ...viewPurchase,
-          products
-      }
-      
+    const viewPurchaseById: TViewPurchase[] = {
+      ...viewPurchase,
+      products,
+    };
+
     res.status(200).send(viewPurchaseById);
   } catch (error: unknown) {
     if (res.statusCode === 200) {

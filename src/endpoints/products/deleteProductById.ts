@@ -14,7 +14,6 @@ export async function deleteProductById(req: Request, res: Response) {
     //deletando produto do banco de dados
     await db("products").del().where({ id: idToDelete });
     res.status(200).send({ message: "deleted product" });
-    
   } catch (error: unknown) {
     if (res.statusCode === 200) {
       res.status(500);

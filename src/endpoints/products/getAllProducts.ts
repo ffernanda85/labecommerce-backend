@@ -17,15 +17,8 @@ export const getAllProducts = async (req: Request, res: Response) => {
       }
       //verificando se o name enviado é compativel com algum produto, caso sim retorna o produto, se não retorna todos os produtos
       const result = await db("products")
-        .select(
-          "id",
-          "name",
-          "price",
-          "description",
-          "image_url AS imageUrl"
-        )
+        .select("id", "name", "price", "description", "image_url AS imageUrl")
         .where("name", "LIKE", `%${name}%`);
-
       res.status(200).send(result);
     } else {
       //se o name não for enviado pela query mostra todos os produtos
@@ -36,10 +29,8 @@ export const getAllProducts = async (req: Request, res: Response) => {
         "description",
         "image_url AS imageUrl"
       );
-
       res.status(200).send(result);
     }
-
   } catch (error: unknown) {
     if (res.statusCode === 200) {
       res.status(500);
