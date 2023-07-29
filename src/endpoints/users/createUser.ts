@@ -45,9 +45,9 @@ export async function createUser(req: Request, res: Response) {
     }
     //validações no banco de dados
     //verificando se o id informado já existe em algum cadastro
-    const [user] = await db("users").where({ id: id })
+    const [user] = await db("users").where({ id: id });
     if (user) {
-      res.status(400)
+      res.status(400);
       throw new Error("'User Id' already registered");
     }
     //criando o novo usuário com os dados validados
